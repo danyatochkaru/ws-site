@@ -35,7 +35,7 @@ body{
 }
 a {
   text-decoration: none;
-  color: var(--main-color);
+  color: var(--text-color);
 }
 .link {
   transition: 0.2s;

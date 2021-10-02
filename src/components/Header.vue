@@ -1,11 +1,9 @@
 <template>
     <header>
-        <div class="nav">
-            <ul>
-                <li>Main</li>
-                <li>Tresh ({{tresh.length}})</li>
-            </ul>
-        </div>
+        <ul class="nav">
+            <li class="link" v-for="(item, index) in navMenu" :key="index"><router-link :to="item.link">{{item.title != 'Корзина' ? item.title : item.title + ` (${tresh.length})`  }}</router-link></li>
+            <!-- <li>Tresh ({{tresh.length}})</li> -->
+        </ul>
         <router-link to="/">
             <h1 class="logo">
                 <span class="hred">Hate</span>
@@ -40,6 +38,7 @@ import ModalWindow from './ModalWindow.vue'
 export default {
     data() {
         return {
+            navMenu: [],
             user: {
                 user_id: undefined,
                 user_name: undefined
@@ -61,6 +60,7 @@ export default {
             }
             this.isLoggedIn = true
         }, 2000)
+        this.navMenu = this.$store.state.navMenu
         // fetch('http://localhost:3030/auth/me')
         // .then(response => console.log(response))
     },
@@ -94,6 +94,13 @@ header {
     justify-content: space-around;
     align-items: center;
     box-shadow: 0 0 10px var(--main-color);
+}
+.nav {
+    display: flex;
+    list-style: none;
+}
+.nav li:not(:last-child) {
+    margin-right: 6px;
 }
 .hred {
     color: #FF3333;
